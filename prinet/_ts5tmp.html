@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+	<title></title>
+<link rel="stylesheet" href="../css/jquery.loader-min.css">
+<!-- for development -->
+<!-- <script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="js/knockout-2.2.0.js"></script> -->
+<!-- for production -->
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="http://ajax.aspnetcdn.com/ajax/knockout/knockout-2.2.0.debug.js"></script>
+<!-- <script src="../js/jquery.loader-min.js"></script> -->
+<script src="../../loader/jquery.loader.js"></script>
+<script type="text/javascript">
+$.extend({
+  getUrlVars: function(){
+    var vars = [], hash;
+    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+    for(var i = 0; i < hashes.length; i++)
+    {
+      hash = hashes[i].split('=');
+      vars.push(hash[0]);
+      vars[hash[0]] = hash[1];
+    }
+    return vars;
+  },
+  getUrlVar: function(name){
+    return $.getUrlVars()[name];
+  }
+});
+</script>
+<script type="text/javascript">
+var AccessViewModel = {
+	id : ko.observable(""),
+	email : ko.observable(""),
+	name : ko.observable(""),
+	givenName : ko.observable(""),
+	photo : ko.observable("")
+};
+AccessViewModel.load = function(){
+	var byName = $.getUrlVar('code');
+	if(typeof(byName)!="undefined"){
+		$.getJSON("../acceso/return/index.php?code="+byName, function(allData){
+			AccessViewModel.id(allData.id);
+			AccessViewModel.email(allData.email);
+			AccessViewModel.name(allData.name);
+			AccessViewModel.givenName(allData.given_name);
+			AccessViewModel.photo(allData.picture);	
+			$.loader('close');
+		});
+		
+	}else{
+		$.getJSON("../acceso/return/index.php", function(allData) {
+			switch(allData.status){
+				case 'initiiert':
+					window.location.assign(allData.location);
+					break;
+				default:
+			AccessViewModel.id(allData.id);
+			AccessViewModel.email(allData.email);
+			AccessViewModel.name(allData.name);
+			AccessViewModel.givenName(allData.given_name);
+			AccessViewModel.photo(allData.picture);
+			$.loader('close');
+			}
+		});
+		
+	}
+}
+//Activar knockoutjs
+$(document).ready(function(){
+	$("#wrapper").hide();
+	//Carga el layout del loader
+	$.loader({
+  				content:'<div class="pie">Conectando con Google...</div></b>',
+  				className:"white-with-image",
+  				background: {opacity:0.8, id: "jquery-loader-background"}
+			});
+	//Activa knockout		
+	ko.applyBindings(AccessViewModel);
+	AccessViewModel.load();
+});
+</script>
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<div id="wrapper">
+	<header>HEADER
+	<div id="friso">
+		<span data-bind="text: name"></span>
+		<img data-bind="attr:{src: photo}" alt="foto" id="credFoto">
+	</div>
+	<nav>NAVBAR
+	</header>
+	<article>
+	CONTENTS
+	
+	
+	
+	<hr>
+	
+	</article>
+	<aside>SIDEBAR</aside>
+	<footer>FOOTER</footer>
+</div><!-- EOT wrapper -->
+</body>
+</html>

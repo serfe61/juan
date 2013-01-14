@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+<link href='http://fonts.googleapis.com/css?family=Lato:400,300' rel='stylesheet' type='text/css'>	
+<link rel="stylesheet" type="text/css" href="../css/style.css">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="http://ajax.aspnetcdn.com/ajax/knockout/knockout-2.2.0.debug.js"></script>
+<script src="../js/jquery.maskedinput-1.3.js"></script>
+<script type="text/javascript">
+function sizingNavBar(qMenuItems){
+$("#barra>li").width(Math.ceil($("#navbarra").width()/qMenuItems));
+}
+function AppViewModel() {
+this.clieDetNom = ko.observable();
+this.clieDetCuit = ko.observable();
+this.clieDetCod = ko.observable();
+this.clieDetDom1= ko.observable();
+this.clieDetDom2= ko.observable();
+this.clieDetTel1=ko.observable();
+this.clieDetTel2=ko.observable();
+this.clieDetMovil1=ko.observable();
+this.clieDetMovil2=ko.observable();
+this.clieDetEmail1=ko.observable();
+this.clieDetEmail2=ko.observable();
+this.clieDetSitio=ko.observable();
+this.clieDetObs=ko.observable();
+
+this.clieDetFull = ko.computed(function() {
+return this.clieDetCod()+"\n"+this.clieDetDom1()+" "+this.clieDetDom2()+" "+this.clieDetTel1()+" "+this.clieDetTel2()+" "+this.clieDetMovil1()+" "+this.clieDetMovil2()+" "+this.clieDetEmail1()+" "+this.clieDetEmail2()+" "+this.clieDetSitio()+" "+this.clieDetObs();
+}, this);
+
+this.capitalizeLastName = function() {
+var currentVal = this.operApellido(); // Read the current value
+this.operApellido(currentVal.toUpperCase()); // Write back a modified value
+};
+}
+
+// Activates knockout.js
+$(document).ready(function(){
+sizingNavBar(7);
+
+ 
+$('input:radio[name=tdoc]').click(function() {
+	$("#cuit").removeAttr('disabled');
+	if($(this).attr("value")=="CUIT"){
+		$("#cuit").mask('99-99999999-9');
+		alert('ACATOY');
+	}else{
+		$("#cuit").mask('99.999.999');
+	}
+		
+
+} ); 
+ 
+ 
+ko.applyBindings(new AppViewModel());
+}); 
+</script>
+</head>
+
+<body class="jar">
+	 <div id="wrapper" > 
+                <header>
+                        <div id="wrappnavbar">
+                            <nav id="navbarra">
+                              <div class="liizq"></div>
+                            	<ul id="barra">
+                            	     	<li class="liizq"></li>
+                            	     	<li> <a href="#">Inicio</a></li>
+                            			<li> <a href="#">Servicios</a></li>
+                            			<li> <a href="#">Staff</a></li>
+                            			<li> <a href="#">Contacto</a></li>
+                            			<li> <a href="#">Aplicaciones</a></li>
+                            			<li class="lider">
+                            			    <div id="searchpri">
+															<form method="post" name="pform" action="">
+																	<input type="text" id="search" placeholder="Buscar...">
+															</form>
+												    </div>
+												</li>
+												                            			              			
+                            	</ul>
+                            </nav>
+                        </div>
+                </header>
+                
+                <section id="main">
+                <div class="panel" >
+                <h1>Alta de Clientes</h1>
+                <form id="alta" method="GET" name="alta">
+                       <div id="lTable">   
+                              <div class="fila">
+    														<span class="celda etiq">Nombre de Cliente: </span>
+    														<span class="celda">
+    																				<input class="inputspan" data-bind="value:clieDetNom"/>
+    														</span>
+    									</div> 
+    									<div class="fila">
+    					
+    					<span class="celda etiq"> Cuit: </span>
+    														<span class="celda">
+    																				<input id="cuit" class="inputspan" data-bind="value:clieDetCuit" disabled />
+    														</span>
+    														<span class="celda">
+    															<input type="radio" name="tdoc" value="CUIT"> CUIT
+    															<input type="radio" name="tdoc" value="DNI"> DNI
+    					</span>
+    									</div>
+    									<div class="fila">
+    														<span class="celda etiq">C&oacute;digo de Cliente: </span>
+    														<span class="celda">
+    																				<input class="inputspan" data-bind="value:clieDetCod"/>
+    														</span>
+    									</div>
+    									<div class="fila">
+    														<span class="celda etiq">Domicilio Principal: </span>
+    														<span class="celda">
+    																				<input class="inputspan" data-bind="value:clieDetDom1"/>
+    														</span>
+    									</div>
+    									<div class="fila">
+    														<span class="celda etiq">Domicilio Secundario: </span>
+    														<span class="celda">
+    																				<input class="inputspan" data-bind="value:clieDetDom2"/>
+    														</span>
+    									</div>
+    									<div class="fila">
+    														<span class="celda etiq">Tel&eacute;fono 1:</span>
+    														<span class="celda">
+    																				<input class="inputspan" data-bind="value:clieDetTel1"/>
+    														</span>
+    									</div>
+    									<div class="fila">
+    														<span class="celda etiq">Tel&eacute;fono 2:</span>
+    														<span class="celda">
+    																				<input class="inputspan" data-bind="value:clieDetTel2"/>
+    														</span>
+    									</div>
+    									<div class="fila">
+    														<span class="celda etiq">M&oacute;vil 1:</span>
+    														<span class="celda">
+    																				<input class="inputspan" data-bind="value:clieDetMovil1"/>
+    														</span>
+    									</div>
+    									<div class="fila">
+    															<span class="celda etiq">M&oacute;vil 2:</span>
+    															<span class="celda">
+    																					<input class="inputspan" data-bind="value:clieDetMovil2"/>
+    															</span>
+    									</div>
+    									<div class="fila">
+    														<span class="celda etiq">Email Principal:</span>
+    														<span class="celda">
+    																				<input class="inputspan" data-bind="value:clieDetEmail1"/>
+    														</span>
+    									</div>
+    									<div class="fila">
+    														<span class="celda etiq">Email Alternativo:</span>
+    														<span class="celda">
+    																				<input class="inputspan" data-bind="value:clieDetEmail2"/>
+    														</span>
+    									</div>
+    									<div class="fila">
+    														<span class="celda etiq">Sitio Web:</span>
+    														<span class="celda">
+    																				<input class="inputspan" data-bind="value:clieDetSitio"/>
+    														</span>
+    									</div>
+    									<div class="fila">
+    														<span class="celda etiq">Observaciones:</span>
+    														<span class="celda">
+    																				<input class="inputspan" data-bind="value:clieDetObs"/>
+    														</span>
+    									</div>
+  								</div><!-- Fin de lTable -->
+  								</form>
+  						</div><!-- End of #panel -->
+  					 <p><span data-bind= "text: clieDetFull" ></span></p>
+                </section>
+                       
+<footer id="footer"><!-- pie-->
+					<div id="global">
+ 		
+    				<div id="contenedor">
+    						<div class="columnas">
+    							<h3 class="h3_foot" >Aplicaciones</h3>
+    							<ul class="ul_foot">
+    									<li>Gestion de Pedidos</li>
+    									<li>Alta de Clientes</li>
+    									<li>Alta de Operadora</li>
+    									<li>Alta de operario</li>
+    									<li>Alta de Pedidos</li>   							
+    							</ul>    							
+    						</div>
+    						<div class="columnas">
+    							<h3 class="h3_foot">Servicios</h3>
+    								<ul class="ul_foot">
+    									<li>Instalacion de linea Telefonica</li>
+    									<li>instalacion de Bocas Telefonicas Adicionales</li>
+    									<li>Chequeo de Instalacion Interna</li>
+    									<li>Chequeo de Instalacion Externa</li>
+    							
+    							</ul>
+    						</div>
+    						<div class="columnas">
+    							<h3 class="h3_foot" >Nuestras Empresas</h3>
+    								<ul class="ul_foot">
+    									<li>Telefonica</li>
+    									<li>Telecom</li>
+    									<li>Movistar</li>
+    									<li>Claro</li>
+    								</ul>
+    						</div>
+    						<div class="columnas">
+    							<h3 class="h3_foot" >Quienes Somos</h3>
+    								<ul class="ul_foot">
+    									<li>Nuestra empresa</li>
+    									<li>Contacto</li>
+    							
+    							</ul>
+    						</div>
+    				</div>
+    				</div> 		
+</footer><!--</div>-->
+</div> 
+</body>
+</html>
