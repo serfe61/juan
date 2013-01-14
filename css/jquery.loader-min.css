@@ -1,0 +1,6 @@
+@CHARSET "UTF-8";#jquery-loader{border:2px black solid;padding-top:35px;background-color:white;text-align:center;}
+#jquery-loader-background{background-color:#778899;}
+#jquery-loader.blue-with-image{border:2px #008587 solid;padding-top:35px;background-color:white;text-align:center;background-image:url(images/ajax-loader.gif);background-position:center center;background-repeat:no-repeat;}
+#jquery-loader.blue-with-image-2{border:none;padding-top:35px;background-color:transparent;text-align:center;background-image:url(images/ajax-loader.gif);background-position:center center;background-repeat:no-repeat;}
+#jquery-loader.white-with-image{border:none;padding-top:35px;background-color:transparent;text-align:center;background-image:url(images/ajax-loader-alpha1.gif);background-position:center center;background-repeat:no-repeat;}
+.pie{margin-top: 2em;font-family: Courier, monospace; color: #e1e4ea;}
